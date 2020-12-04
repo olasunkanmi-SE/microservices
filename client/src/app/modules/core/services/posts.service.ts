@@ -1,9 +1,18 @@
+import { environment } from './../../../../environments/environment';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+environment;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PostsService {
+  backendURL: string;
+  constructor(private httpClient: HttpClient) {
+    this.backendURL = environment.postURL;
+  }
 
-  constructor() { }
+  getPosts() {
+    return this.httpClient.get(`${this.backendURL}`);
+  }
 }

@@ -1,0 +1,14 @@
+{
+  "/api/posts/*": {
+    "target": "http://localhost:4000",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/api/comments/*": {
+    "target": "http://localhost:4001",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  }
+}
