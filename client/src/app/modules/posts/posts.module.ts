@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { PostsRoutingModule } from './posts-routing.module';
 import { PostsComponent } from './posts.component';
 import { PostListComponent } from './components/post-list/post-list.component';
@@ -16,6 +17,6 @@ import { CommentCreateComponent } from './components/comment-create/comment-crea
     CommentListComponent,
     CommentCreateComponent,
   ],
-  imports: [CommonModule, PostsRoutingModule],
+  imports: [CommonModule, PostsRoutingModule, FormsModule, ReactiveFormsModule],
 })
 export class PostsModule {}

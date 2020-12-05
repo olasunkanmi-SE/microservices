@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   postURL: 'http://localhost:4000/api/posts/',
-  commentURL: 'http://localhost:4001/api/comments',
+  commentURL: 'http://localhost:4001/api/comments/posts',
 };
 
 /*

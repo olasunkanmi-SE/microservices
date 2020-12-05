@@ -1,23 +1,26 @@
 const express = require("express");
 const { randomBytes } = require("crypto");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const app = express();
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cors());
 
-const posts = {};
+const posts = [];
 
-app.get("/posts", (req, res) => {
+app.get("/api/posts", (req, res) => {
   res.send(posts);
 });
-app.post("/posts", async (req, res) => {
+app.post("/api/posts", async (req, res) => {
   const id = randomBytes(4).toString("hex");
   const { title } = req.body;
-  posts[id] = {
-    id,
-    title,
-  };
-  res.status(201).send(posts[id]);
+  if (title.length < 1) {
+    return status(400).send("title is required");
+  }
+  let post = { id, title };
+  posts.push(post);
+  res.status(201).send(posts);
 });
 
 app.listen(4000, () => {

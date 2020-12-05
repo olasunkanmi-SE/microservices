@@ -1,1 +1,55 @@
-<router-outlet></router-outlet>
+<!-- <router-outlet></router-outlet> -->
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 mb-3"></div>
+      <div class="col-md-4 mb-3">
+        <form [formGroup]="postForm" (ngSubmit)="createPost()">
+          <div class="form-group">
+            <label for="exampleInputEmail1"><h1>Create Post</h1></label>
+            <input type="text" class="form-control" formControlName="title" />
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="postForm.invalid"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+      <div class="col-md-4 mb-3"></div>
+    </div>
+    <div class="row">
+      <div class="row">
+        <div *ngFor="let post of posts$" class="col-md-4 mb-3">
+          <div class="card" style="width: 18rem">
+            <div class="card-body">
+              <p class="card-text">{{ post.title }}</p>
+              <p class="card-title" *ngFor="let comment of comments$">
+                {{ comment.content }}
+              </p>
+              <form>
+                <div class="form-group">
+                  <label for="exampleInputEmail1"
+                    ><h5>Create Comment</h5></label
+                  >
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                  />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
