@@ -18,5 +18,6 @@ import { CommentCreateComponent } from './components/comment-create/comment-crea
     CommentCreateComponent,
   ],
   imports: [CommonModule, PostsRoutingModule, FormsModule, ReactiveFormsModule],
+  exports: [CommentListComponent, CommentCreateComponent],
 })
 export class PostsModule {}

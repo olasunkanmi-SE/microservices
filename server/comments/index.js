@@ -12,12 +12,13 @@ let commentsByPostId = {};
 
 //Return all comments
 app.get("/api/comments/posts/:id", (req, res) => {
-  comments.map((comment) => {
-    if (comment.id == req.params.id) {
-      commentsByPostId = comment.comments[req.params.id];
-    }
-  });
-  return res.status(200).json(commentsByPostId);
+  let commentId = req.params.id;
+  let postComments = commentsByPostId[commentId];
+  if (postComments) {
+    return res.status(200).json(postComments);
+  } else {
+    return;
+  }
 });
 
 //Create a post comment

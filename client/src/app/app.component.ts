@@ -1,5 +1,5 @@
 import { PostsService } from './modules/core/services/posts.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -11,10 +11,8 @@ export class AppComponent {
   title = 'client';
   postForm: AbstractControl;
   posts$;
-  comments$;
+  comments;
 
-  comment;
-  @Input() post: any;
   constructor(
     private formBuilder: FormBuilder,
     private PostsService: PostsService
@@ -23,7 +21,7 @@ export class AppComponent {
   ngOnInit(): void {
     this.initializeForm();
     this.fetchPosts();
-    this.fetchComments();
+    // this.fetchComments();
   }
 
   initializeForm() {
@@ -54,15 +52,16 @@ export class AppComponent {
     );
   }
 
-  fetchComments() {
-    this.PostsService.getComments('123').subscribe(
-      (res) => {
-        this.comments$ = res;
-        console.log(res);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
+  // fetchComments() {
+  //   console.log(this.post.id);
+  //   this.PostsService.getComments(this.post.id).subscribe(
+  //     (res) => {
+  //       this.comments$ = res;
+  //       console.log(res);
+  //     },
+  //     (err) => {
+  //       console.log(err);
+  //     }
+  //   );
+  // }
 }
