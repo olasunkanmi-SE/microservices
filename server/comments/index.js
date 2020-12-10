@@ -30,7 +30,7 @@ app.post("/api/comments/posts/:id", async (req, res) => {
   if (req.body.content.length < 1) {
     throw new Error("content is required");
   }
-  let comment = { id: commentId, content };
+  let comment = { id: commentId, content, status: "pending" };
   const comments = commentsByPostId[req.params.id] || [];
   comments.push(comment);
   //Send a new event
@@ -41,6 +41,7 @@ app.post("/api/comments/posts/:id", async (req, res) => {
         id: commentId,
         content,
         postId: req.params.id,
+        status: "pending",
       },
     });
   } catch (error) {
@@ -51,8 +52,32 @@ app.post("/api/comments/posts/:id", async (req, res) => {
   res.status(201).send(comments);
 });
 
-app.post("/events", (req, res) => {
-  console.log("Received Event", req.body);
+app.post("/events", async (req, res) => {
+  const { type, data } = req.body;
+  const { postId, id, content, status } = data;
+  if (type === "CommentModerated") {
+    let comments = commentsByPostId[postId];
+    const comment = comments.find((comment) => {
+      return comment.id === id;
+    });
+
+    comment.status = status;
+    try {
+      await axios.post("http://localhost:4005", {
+        type: "CommentUpdated",
+        data: {
+          id,
+          status,
+          postId,
+          content,
+        },
+      });
+    } catch (error) {
+      // console.log(error.error);
+    }
+  }
+
+  await console.log("Received Event", req.body);
   res.send({});
 });
 
