@@ -21,7 +21,6 @@ export class AppComponent {
   ngOnInit(): void {
     this.initializeForm();
     this.fetchPosts();
-    // this.fetchComments();
   }
 
   initializeForm() {
@@ -44,24 +43,11 @@ export class AppComponent {
   fetchPosts() {
     this.PostsService.getPosts().subscribe(
       (res) => {
-        this.posts$ = res;
+        this.posts$ = Object.values(res);
       },
       (err) => {
         console.log(err);
       }
     );
   }
-
-  // fetchComments() {
-  //   console.log(this.post.id);
-  //   this.PostsService.getComments(this.post.id).subscribe(
-  //     (res) => {
-  //       this.comments$ = res;
-  //       console.log(res);
-  //     },
-  //     (err) => {
-  //       console.log(err);
-  //     }
-  //   );
-  // }
 }

@@ -34,14 +34,19 @@ app.post("/api/comments/posts/:id", async (req, res) => {
   const comments = commentsByPostId[req.params.id] || [];
   comments.push(comment);
   //Send a new event
-  await axios.post("http://localhost:4005/events", {
-    type: "CommentCreated",
-    data: {
-      id: commentId,
-      content,
-      postId: req.params.id,
-    },
-  });
+  try {
+    await axios.post("http://localhost:4005/events", {
+      type: "CommentCreated",
+      data: {
+        id: commentId,
+        content,
+        postId: req.params.id,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+
   commentsByPostId[req.params.id] = comments;
   res.status(201).send(comments);
 });

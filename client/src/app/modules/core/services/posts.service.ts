@@ -10,17 +10,19 @@ environment;
 export class PostsService {
   postURL: string;
   commentURL: string;
+  queryURL: string;
   headers: any = new HttpHeaders();
   comments = new Subject<any[]>();
   comments$ = this.comments.asObservable();
   constructor(private httpClient: HttpClient) {
     this.postURL = environment.postURL;
     this.commentURL = environment.commentURL;
+    this.queryURL = environment.queryURL;
     this.headers.append('Content-Type', 'application/json; charset=utf-8');
   }
 
   getPosts() {
-    return this.httpClient.get(`${this.postURL}`).pipe();
+    return this.httpClient.get(`${this.queryURL}`).pipe();
   }
 
   createPost(post: any) {

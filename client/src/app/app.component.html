@@ -23,20 +23,15 @@
       <div class="col-md-4 mb-3"></div>
     </div>
     <div class="row">
-      <div class="row">
-        <div *ngFor="let post of posts$" class="col-md-4 mb-3">
-          <div class="card" style="width: 18rem">
-            <div class="card-body">
-              <p class="card-text">
-                Title: <b>{{ post.title }}</b>
-              </p>
-              <small><b> Comments</b></small>
-              <app-comment-list
-                [post]="post"
-                [comments]="comments"
-              ></app-comment-list>
-              <div><app-comment-create [post]="post"></app-comment-create></div>
-            </div>
+      <div *ngFor="let post of posts$" class="col-md-4 mb-3">
+        <div class="card" style="width: 18rem">
+          <div class="card-body">
+            <p class="card-text">
+              Title: <b>{{ post.title }}</b>
+            </p>
+            <small><b> Comments</b></small>
+            <app-comment-list [comments]="post.comments"></app-comment-list>
+            <div><app-comment-create [post]="post"></app-comment-create></div>
           </div>
         </div>
       </div>

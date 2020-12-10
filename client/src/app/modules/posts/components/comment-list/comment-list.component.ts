@@ -7,22 +7,12 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./comment-list.component.scss'],
 })
 export class CommentListComponent implements OnInit {
-  @Input() post: any;
   @Input() comments: any;
   constructor(private postsService: PostsService) {
-    postsService.comments$.subscribe((res) => {
+    this.postsService.comments$.subscribe((res) => {
       this.comments = res;
     });
   }
 
-  ngOnInit(): void {
-    this.fetchComments();
-  }
-  fetchComments() {
-    this.postsService.getComments(this.post.id).subscribe((res) => {
-      if (res) {
-        this.comments = res;
-      }
-    });
-  }
+  ngOnInit(): void {}
 }

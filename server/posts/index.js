@@ -22,10 +22,15 @@ app.post("/api/posts", async (req, res) => {
   let post = { id, title };
   posts.push(post);
   //send out event
-  await axios.post("http://localhost:4005/events", {
-    type: "PostCreated",
-    data: post,
-  });
+  try {
+    await axios.post("http://localhost:4005/events", {
+      type: "PostCreated",
+      data: post,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+
   res.status(201).send(posts);
 });
 
