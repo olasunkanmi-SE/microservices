@@ -1,4 +1,3 @@
-import { PostsService } from './../../../core/services/posts.service';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -7,12 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./comment-list.component.scss'],
 })
 export class CommentListComponent implements OnInit {
-  @Input() comments: any;
-  constructor(private postsService: PostsService) {
-    this.postsService.comments$.subscribe((res) => {
-      this.comments = res;
-    });
-  }
+  @Input() comment: any;
 
   ngOnInit(): void {}
 }

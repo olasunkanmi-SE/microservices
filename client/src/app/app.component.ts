@@ -11,17 +11,16 @@ export class AppComponent {
   title = 'client';
   postForm: AbstractControl;
   posts$;
-  comments;
 
   constructor(
     private formBuilder: FormBuilder,
     private PostsService: PostsService
-  ) {}
-
-  ngOnInit(): void {
+  ) {
     this.initializeForm();
     this.fetchPosts();
   }
+
+  ngOnInit(): void {}
 
   initializeForm() {
     this.postForm = this.formBuilder.group({

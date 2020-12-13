@@ -8,7 +8,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-const comments = [];
 let commentsByPostId = {};
 
 //Return all comments
@@ -18,7 +17,7 @@ app.get("/api/comments/posts/:id", (req, res) => {
   if (postComments) {
     return res.status(200).json(postComments);
   } else {
-    return;
+    return res.status(404).send({});
   }
 });
 
@@ -49,18 +48,19 @@ app.post("/api/comments/posts/:id", async (req, res) => {
   }
 
   commentsByPostId[req.params.id] = comments;
+  console.log(comments);
   res.status(201).send(comments);
 });
 
 app.post("/events", async (req, res) => {
-  const { type, data } = req.body;
-  const { postId, id, content, status } = data;
+  const { type, data } = await req.body;
+
   if (type === "CommentModerated") {
+    const { id, postId, content, status } = data;
     let comments = commentsByPostId[postId];
     const comment = comments.find((comment) => {
       return comment.id === id;
     });
-
     comment.status = status;
     try {
       await axios.post("http://localhost:4005", {
@@ -73,11 +73,11 @@ app.post("/events", async (req, res) => {
         },
       });
     } catch (error) {
-      // console.log(error.error);
+      console.log(error.message);
     }
   }
 
-  await console.log("Received Event", req.body);
+  console.log("Received Event", req.body);
   res.send({});
 });
 

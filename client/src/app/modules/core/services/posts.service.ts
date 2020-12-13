@@ -30,7 +30,12 @@ export class PostsService {
   }
 
   getComments(id: string) {
-    return this.httpClient.get(`${this.commentURL}/${id}`).pipe();
+    return this.httpClient
+      .get(`${this.commentURL}/${id}`)
+      .pipe()
+      .subscribe((res: any) => {
+        this.comments.next(res);
+      });
   }
 
   createComment(id: string, comment: any) {

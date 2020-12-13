@@ -30,7 +30,9 @@
               Title: <b>{{ post.title }}</b>
             </p>
             <small><b> Comments</b></small>
-            <app-comment-list [comments]="post.comments"></app-comment-list>
+            <div *ngFor="let comment of post.comments">
+              <app-comment-list [comment]="comment.status"></app-comment-list>
+            </div>
             <div><app-comment-create [post]="post"></app-comment-create></div>
           </div>
         </div>
